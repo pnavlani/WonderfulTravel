@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Wonderfull Travels</title>
-    <link rel="stylesheet" href="../Estils/estils.css">
+    <link rel="stylesheet" href="Estils/estils.css">
     <script src="../index.php"></script>
 </head>
 
