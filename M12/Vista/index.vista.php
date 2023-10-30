@@ -10,7 +10,7 @@
 
 <body>
     <h1>Wonderfull Travels</h1>
-
+    <h2>PROJECTE 12</h2>
     <form>
         <div>
             <h2>Información del Viaje</h2>
