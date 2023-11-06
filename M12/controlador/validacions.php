@@ -25,4 +25,9 @@ function validarAdreca(string $adreca): bool {
 function validarNum(string $tel): bool {
     return preg_match('/^[6-9][0-9]{8}$/', $tel) === 1;
 }
+
+if(isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST[''])){
+    
+
+}
 ?>
