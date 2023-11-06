@@ -1,25 +1,34 @@
 <?php 
 $errors = "";
 $html = "";
-if (isset($_GET['continent'])) {
-    $continente = $_GET['continent'];
-} else {
-    $continente = ".";
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = htmlspecialchars($_POST['fecha_ida']);
-    $num_pasajeros = htmlspecialchars($_POST['num_pasajeros']);
-    $nombre_cliente = htmlspecialchars($_POST['nombre_cliente']);
-    $nif_cliente = htmlspecialchars($_POST['nif_cliente']);
-    $telefono = htmlspecialchars($_POST['telefono']);
-    $direccion = htmlspecialchars($_POST['direccion']);
-    $telefono = htmlspecialchars($_POST['telefono']);
-}
-    require_once "controlador/validacions.php";
-
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["continent"])) {
+    $selectedContinent = $_POST["continent"];
     
+    $countires = getCountries($selectedContinent);
 
-include "Vista/index.vista.php"
+    $countires = getCountries($selectedContinent);
+    $countiresJSON = json_encode($countires);
+    echo $countiresJSON;
+
+}
+
+
+
+
+function getCountries($selectedContinent)
+{
+    require_once "db.php";
+    try {
+        $conn = connexion();
+        $stmt = $conn->prepare("SELECT * FROM continents WHERE continent = :continent");
+        $stmt->bindParam(":continent", $selectedContinent);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    } catch (PDOException $e) {
+        echo "Database error: " . $e->getMessage();
+    }
+}
+
 
 ?>
