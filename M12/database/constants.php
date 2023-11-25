@@ -1,5 +1,5 @@
 <?php
-require './pdo.php';
+require '../database/pdo.php';
 
 
 
@@ -13,9 +13,10 @@ function registreClient($nom,$nif,$correo, $direccio, $telefon){
         echo "L'usuari ja existeix";
     }
     else{
-        $stmt = $connexio->prepare("INSERT INTO client (nom, email, telefon, direccio, nif) VALUES ('$nom', '$correo', '$telefon','$direccio',$nif)");
-                $stmt->execute();
+        $stmt = $connexio->prepare("INSERT INTO client (nom, email, telefon, direccio, nif) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute(array($nom, $correo, $telefon, $direccio, $nif));
     }
+    header('Location: ../Vista/index.vista.html');
 }
 
 ?>

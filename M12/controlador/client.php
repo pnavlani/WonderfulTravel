@@ -1,79 +1,70 @@
 <?php
 
-    require './validacions.php';
-    require '../database/constants.php';
-
-if(($_SERVER["REQUEST_METHOD"] == "POST" ) && isset($_POST['submit'])){
+    require_once '../controlador/validacions.php';
+    require_once '../database/constants.php';
+    $errors = "";
+    
+if(($_SERVER["REQUEST_METHOD"] == "POST" ) &&  isset($_POST['submit'])){
     $nom = $_POST['nom'];
     $nif = $_POST['nif'];
-    $correo = $_POST['correo'];
+    $correo = $_POST['email'];
     $direccio = $_POST['direccio'];
     $telefon = $_POST['telefon'];
+    
 
     //Si els camps no estan buits es redirigeix cap a la funcio 
     if(!empty($nom) && !empty($nif) && !empty($correo) && !empty($direccio) && !empty($telefon)){
-       validarClient($nom,$nif,$correo,$direccio,$telefon);
-       echo
-     /*  "<script>
-       alert('Client Registrat');
-        </script>"; */
-        header("Location: ../Vista/index.vista.html");
+       validarClient($nom,$nif,$correo,$direccio,$telefon, $errors);
+      //  header("Location: ../Vista/index.vista.html");
     } else{
         //En el cas de que els camps estan buits
         if(empty($_POST['nom'])){
-        $errors['nom'] = "Ompliu el nom";
+        $errors.= "Ompliu el nom\n";
         }
 
-        if(empty($_POST["correo"])){
-            $errors["correo"] = "Ompliu el correo";
+        if(empty($_POST["email"])){
+            $errors.= "Ompliu el correo\n";
         }  
 
         if(empty($_POST["nif"])){
-            $errors["nif"] = "Ompliu el nif";
+            $errors.= "Ompliu el nif\n";
         }
 
         if(empty($_POST["direccio"])){
-            $errors["direccio"] = "Ompliu la direcció";
+            $errors.= "Ompliu la direcció\n";
         }
 
         if(empty($_POST["telefon"])){
-            $errors["telefon"] = "Ompliu el telefon";
+            $errors.= "Ompliu el telefon\n";
         }
 
     }
 
 }
 
-    function validarClient($nom,$nif,$correo, $direccio, $telefon){
-        $validarNom = validarNom($nom);
-        $validarNif = validarNif($nif);
-        $validarCorreo = validarEmail($correo);
-        $validarAdreca = validarAdreca($direccio);
-        $validarTelefon = validarTelefon($telefon);
+    function validarClient($nom,$nif,$correo, $direccio, $telefon, &$errors){
+        $errors = [] ;
+        if (!validarNom($nom)){$errors['nom']= "Ha de ser cadena de caracters\n";}
+        if (!validarDNI($nif)){$errors['nif']= "NIF ha de ser 8 digits amb una lletra alfinal\n";}
+        if (!validarEmail($correo)){$errors['email']= "Correu Electronic ha de contenir una @ al mig i un '.' \n";}
 
+      /*  if(!filter_var($correo, FILTER_VALIDATE_EMAIL)){
+            $errors.= "Ha de contenir una @ al mig i un .";
+        } */
+        if (!validarAdreca($direccio)){$errors['direccio']= "Adreça incorrecte\n";}
+        if (!validarNum($telefon)){$errors['telefon']= "Num Telefon incorrecte\n";}
+        
+        if($errors === ""){
+            registreClient($nom,$nif,$correo, $direccio, $telefon);
+        }
 
-        if(isset($_POST["submit"])){
-            if($validarNom != 1){
-                $errors["nom"] = "Ha de cadena de caracters";
-            }
-            if($validarNif != 1){
-                $errors["nif"] = "Nif incorrecte";
-            }
-            if($validarCorreo != 1){
-                $errors["correo"] = "Correo electronic incorrecte";
-            }
-            if($validarAdreca != 1){
-                $errors["direccio"] = "Poseu bé l'adreça";
-            }
-            if($validarTelefon !=1){
-                $errors["telefon"] = "Incorrecte";
-            }
-            if(count($errors) == 0){
+        /*
+        if(count($errors) == 0){
                 registreClient($nom,$nif,$correo, $direccio, $telefon);
             }
-        }
+        */
     }   
 
                 
-include 'Vista/client.vista.php';
+include_once '../Vista/client.vista.php';
 ?>
