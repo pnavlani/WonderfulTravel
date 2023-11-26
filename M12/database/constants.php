@@ -16,7 +16,7 @@ function registreClient($nom,$nif,$correo, $direccio, $telefon){
         $stmt = $connexio->prepare("INSERT INTO client (nom, email, telefon, direccio, nif) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute(array($nom, $correo, $telefon, $direccio, $nif));
     }
-    header('Location: ../Vista/index.vista.html');
+    
 }
 
 ?>

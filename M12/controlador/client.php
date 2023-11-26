@@ -15,7 +15,7 @@ if(($_SERVER["REQUEST_METHOD"] == "POST" ) &&  isset($_POST['submit'])){
     //Si els camps no estan buits es redirigeix cap a la funcio 
     if(!empty($nom) && !empty($nif) && !empty($correo) && !empty($direccio) && !empty($telefon)){
        validarClient($nom,$nif,$correo,$direccio,$telefon, $errors);
-      //  header("Location: ../Vista/index.vista.html");
+      header("Location: ../Vista/index.vista.html");
     } else{
         //En el cas de que els camps estan buits
         if(empty($_POST['nom'])){
