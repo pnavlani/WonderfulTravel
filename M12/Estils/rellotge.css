@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.analogic{
+    background: #c9cbd1;
+    height: 320px;
+    width: 320px;
+    position: absolute;
+    top:-15%;
+    left: -7%; 
+    transform: scale(0.30);
+    box-sizing: content-box;
+    border-radius: 50%;
+    border: 5px solid #121314;
+    box-shadow: 15px 15px 35px rgba(243, 243, 243, 0.2),
+        inset 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+img {
+    position: relative;
+}
+
+.hand {
+    position: absolute;
+    background-color: #171515;
+    margin: auto;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    transform-origin: bottom;
+}
+
+.hour {
+    height: 60px;
+    width: 10px;
+    top: 100px;
+}
+
+.minute {
+    height: 80px;
+    width: 5px;
+    top: 80px;
+}
+
+.seconds {
+    height: 90px;
+    width: 3px;
+    top: 70px;
+    background-color: #2196f3;
+}
