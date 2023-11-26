@@ -2,7 +2,7 @@
 
     require_once '../controlador/validacions.php';
     require_once '../database/constants.php';
-    $errors = "";
+    $errors = [];
     
 if(($_SERVER["REQUEST_METHOD"] == "POST" ) &&  isset($_POST['submit'])){
     $nom = $_POST['nom'];
@@ -11,10 +11,10 @@ if(($_SERVER["REQUEST_METHOD"] == "POST" ) &&  isset($_POST['submit'])){
     $direccio = $_POST['direccio'];
     $telefon = $_POST['telefon'];
     
-
     //Si els camps no estan buits es redirigeix cap a la funcio 
     if(!empty($nom) && !empty($nif) && !empty($correo) && !empty($direccio) && !empty($telefon)){
        validarClient($nom,$nif,$correo,$direccio,$telefon, $errors);
+       registreClient($nom,$nif,$correo, $direccio, $telefon);
       header("Location: ../Vista/index.vista.html");
     } else{
         //En el cas de que els camps estan buits
@@ -54,9 +54,9 @@ if(($_SERVER["REQUEST_METHOD"] == "POST" ) &&  isset($_POST['submit'])){
         if (!validarAdreca($direccio)){$errors['direccio']= "Adreça incorrecte\n";}
         if (!validarNum($telefon)){$errors['telefon']= "Num Telefon incorrecte\n";}
         
-        if($errors === ""){
+      /*  if($errors === ""){
             registreClient($nom,$nif,$correo, $direccio, $telefon);
-        }
+        } */
 
         /*
         if(count($errors) == 0){
