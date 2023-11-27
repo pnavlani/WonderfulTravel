@@ -33,7 +33,7 @@
     
     <form name="reserva" id="reserva" action="../model/reserva.php" method="post">
         <div>
-            <h2>Información del Viaje</h2>
+            <h2>Informació del viatge</h2>
             <label for="fecha_ida">Data</label>
             <input type="date" id="fecha_ida" name="fecha_ida" min="<?php echo date('Y-m-d'); ?>"><br><br>
     

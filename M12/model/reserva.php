@@ -55,12 +55,10 @@ function generarID()
 {
     require_once '../database/pdo.php';
     $connexio = connexion();
-    $id = '';
+    $id = "00000";
     $exists = true;
 
     while ($exists) {
-        $id = mt_rand(10000, 99999); // Generates a random number with 5 digits
-
         $stmt = $connexio->prepare("SELECT COUNT(*) FROM reservas WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -69,11 +67,14 @@ function generarID()
 
         if ($count == 0) {
             $exists = false;
+        } else {
+            $id = str_pad(intval($id) + 1, 5, "0", STR_PAD_LEFT);
         }
     }
-
+    echo $id;
     return $id;
 }
+
 
 function sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni)
 {
