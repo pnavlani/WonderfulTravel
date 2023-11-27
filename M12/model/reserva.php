@@ -43,7 +43,6 @@ function insertarReserva($ID, $fecha_ida, $continente, $countrySelect, $num_pasa
         $stmt->bindParam(':DNI', $dni);
         $stmt->execute();
     } catch (Exception $e) {
-        // Handle the exception
     }
 }
 
@@ -235,6 +234,5 @@ function getMail($dni)
 
         return $result['email'];
     } catch (Exception $e) {
-        // Handle the exception
     }
 }

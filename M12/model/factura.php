@@ -23,8 +23,7 @@ if (isset($_POST['idres'])) {
             $price = $reservationData['preu'];
             $passengers = $reservationData['qclients'];
             $DNI = $reservationData['DNI'];
-
-            //a partir del dni agafar les dades del client
+            
             $stmt = $connexio->prepare("SELECT * FROM client WHERE nif = :DNI");
             $stmt->bindParam(':DNI', $DNI);
             $stmt->execute();
