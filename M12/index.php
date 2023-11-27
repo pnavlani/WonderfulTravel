@@ -13,7 +13,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") &&  isset($_POST['submit'])) {
     $direccio = $_POST['direccio'];
     $telefon = $_POST['telefon'];
 
-    //Si els camps no estan buits es redirigeix cap a la funcio 
     if (!empty($nom) && !empty($nif) && !empty($correo) && !empty($direccio) && !empty($telefon)) {
         validarClient($nom, $nif, $correo, $direccio, $telefon, $errors);
         registreClient($nom, $nif, $correo, $direccio, $telefon);
@@ -21,7 +20,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") &&  isset($_POST['submit'])) {
         echo "<script type='text/javascript'>alert('Client registrat correctament');</script>";
         header(('refresh:0;url=Vista/reserva.vista.php'));
     } else {
-        //En el cas de que els camps estan buits
         if (empty($_POST['nom'])) {
             $errors .= "El camp nom és obligatori.\n";
         }
@@ -56,26 +54,12 @@ function validarClient($nom, $nif, $correo, $direccio, $telefon, &$errors)
     if (!validarEmail($correo)) {
         $errors .= "Correu Electronic ha de contenir una @ al mig i un '.' \n";
     }
-
-    /*  if(!filter_var($correo, FILTER_VALIDATE_EMAIL)){
-            $errors.= "Ha de contenir una @ al mig i un .";
-        } */
     if (!validarAdreca($direccio)) {
         $errors .= "Adreça incorrecte\n";
     }
     if (!validarNum($telefon)) {
         $errors .= "Num Telefon incorrecte\n";
     }
-
-    /*  if($errors === ""){
-            registreClient($nom,$nif,$correo, $direccio, $telefon);
-        } */
-
-    /*
-        if(count($errors) == 0){
-                registreClient($nom,$nif,$correo, $direccio, $telefon);
-            }
-        */
 }
 
 
