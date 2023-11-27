@@ -43,7 +43,7 @@
 </head>
 <body>
   <header>
-    <h1>Factura de Reserva</h1>
+    <h1>Wonderful Travel</h1>
   </header>
 
   <section>
@@ -96,6 +96,7 @@
  
     </table>
   </section>
+  
 
   <footer>
     <p>Gràcies per triar els nostres serveis. Per a qualsevol consulta, poseu-vos en contacte amb nosaltres a través del nostre lloc web o correu electrònic.</p>

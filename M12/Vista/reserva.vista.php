@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Wonderfull Travels</title>
     <link rel="stylesheet" href="../Estils/estils.css">
+    <link rel="stylesheet" href="../Estils/rellotge.css">
     <script type="module" src="../controlador/index.js"></script>
 </head>
 
@@ -30,9 +31,8 @@
     <?php } ?>
       
     </header>
-    
     <form name="reserva" id="reserva" action="../model/reserva.php" method="post">
-        <div>
+        <div class="divv">
             <h2>Informació del viatge</h2>
             <label for="fecha_ida">Data</label>
             <input type="date" id="fecha_ida" name="fecha_ida" min="<?php echo date('Y-m-d'); ?>"><br><br>
@@ -73,7 +73,14 @@
         <a><strong>&nbsp;&nbsp;&nbsp;Preu total del viatge:</strong></a> <a id="precio" style="color: blueviolet;" name="precio"></a><br><br>
         <a style="margin-top: 5px; font-size: 10px; float: left; color: red;" >Recordeu que el descompte només s'aplica en viatges on hi hagi 3 passatgers o més* </a>
     </div>
+    <div class="analogic">
+        <div class="hour hand" id="hora"></div>
+        <div class="minute hand" id="minut"></div>
+        <div class="seconds hand" id="segons"></div>
+        <img class="imgg" src="../photos/rellotge.svg" alt="Rellotge Analogic" />
     </div>
+
+   <script src="../js/analogic.js"></script>
 </body>
 
 </html>

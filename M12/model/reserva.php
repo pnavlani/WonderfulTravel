@@ -16,6 +16,7 @@ if (isset($_SESSION['dni'])) {
         $num_pasajeros = $_POST['num_pasajeros'];
         $precio2 = $_POST['precio2'];
         $dni = $_SESSION['dni'];
+        $continente = ucfirst($continente);
         $ID = generarID();
         insertarReserva($ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni);
         $email = getMail($dni);
@@ -23,8 +24,8 @@ if (isset($_SESSION['dni'])) {
         header('Location: detalls.php');
     }
 } else {
-    header('Location: ../index.php');
     echo "<script type='text/javascript'>alert('No has iniciat sessió');</script>";
+    header('refresh:0;url=../index.php');
 }
 
 function insertarReserva($ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni)
