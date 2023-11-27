@@ -13,7 +13,7 @@ function validarDNI(string $dni): bool {
 
 
 function validarEmail(string $email): bool {
-    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    return filter_var($email, FILTER_VALIDATE_EMAIL) == true;
 }
 
 
@@ -26,8 +26,5 @@ function validarNum(string $tel): bool {
     return preg_match('/^[6-9][0-9]{8}$/', $tel) === 1;
 }
 
-if(isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST['']) && isset($_POST[''])){
-    
 
-}
 ?>
