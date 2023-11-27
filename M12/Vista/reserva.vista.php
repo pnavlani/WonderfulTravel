@@ -68,7 +68,7 @@
         <a><strong>&nbsp;&nbsp;&nbsp;Data d'anada: </strong></a> <a style="color: blueviolet;" name="fechat" id="fechat"></a><br><br>
         <a><strong>&nbsp;&nbsp;&nbsp;Destí:</strong></a> <a style="color: blueviolet;" id="destino"></a><br><br>
         <a><strong>&nbsp;&nbsp;&nbsp;Passatgers:</strong></a> <a style="color: blueviolet;" id="passajeros"></a><br><br>
-        <a><strong>&nbsp;&nbsp;&nbsp;Descompte aplicat?</strong></a> <a style="color: blueviolet;" id="desc"></a><br><br>
+        <a><strong>&nbsp;&nbsp;&nbsp;Descompte aplicat?</strong></a> <a style="color: blueviolet;" id="desc"></a><br><br> 
         <a><strong>&nbsp;&nbsp;&nbsp;Preu per persona:</strong></a> <a style="color: blueviolet;" id="preciopers"></a><br><br>
         <a><strong>&nbsp;&nbsp;&nbsp;Preu total del viatge:</strong></a> <a id="precio" style="color: blueviolet;" name="precio"></a><br><br>
         <a style="margin-top: 5px; font-size: 10px; float: left; color: red;" >Recordeu que el descompte només s'aplica en viatges on hi hagi 3 passatgers o més* </a>
