@@ -1,17 +1,15 @@
-<?php 
+<?php
 session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../PHPMailer/src/Exception.php';             
+require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
-if (isset($_SESSION['dni']))
-{
-    if (isset($_POST['fecha_ida']) && isset($_POST['continente']) && isset($_POST['countrySelect']) && isset($_POST['num_pasajeros']) && isset($_POST['precio2']))
-    {
+if (isset($_SESSION['dni'])) {
+    if (isset($_POST['fecha_ida']) && isset($_POST['continente']) && isset($_POST['countrySelect']) && isset($_POST['num_pasajeros']) && isset($_POST['precio2'])) {
         $fecha_ida = $_POST['fecha_ida'];
         $continente = $_POST['continente'];
         $countrySelect = $_POST['countrySelect'];
@@ -23,11 +21,8 @@ if (isset($_SESSION['dni']))
         $email = getMail($dni);
         sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni);
         header('Location: detalls.php');
-
     }
-}
-else 
-{
+} else {
     header('Location: ../index.php');
     echo "<script type='text/javascript'>alert('No has iniciat sessió');</script>";
 }
@@ -99,35 +94,123 @@ function sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pas
         $mail->isHTML(true);                                         //Set email format to HTML
         $mail->Subject = 'Wonderful Travel - Detalls de la reserva';
         // Construir el cuerpo del correo
+
+        require_once '../database/pdo.php';
+        $connexio = connexion();
+        $stmt = $connexio->prepare("SELECT * FROM client WHERE nif = :DNI");
+        $stmt->bindParam(':DNI', $dni);
+        $stmt->execute();
+        $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $nom = $clientData['nom'];
+        $email = $clientData['email'];
+        $telefon = $clientData['telefon'];
+        $direccio = $clientData['direccio'];
+
         $text = '
-            <html>
-            <head>
-                <title>Reserva de viatge</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f2f2f2;
-                    }
-                    h1 {
-                        color: #333333;
-                    }
-                    p {
-                        color: #666666;
-                    }
-                </style>
-            </head>
-            <body>
-                <h1>Detalls de la reserva</h1>
-                <p>ID de reserva: ' . $ID . '</p>
-                <p>Data d\'anada: ' . $fecha_ida . '</p>
-                <p>Continent: ' . $continente . '</p>
-                <p>País seleccionat: ' . $countrySelect . '</p>
-                <p>Número de passatgers: ' . $num_pasajeros . '</p>
-                <p>Preu: ' . $precio2 . '</p>
-                <p>DNI: ' . $dni . '</p>
-            </body>
-            </html>
-        ';
+        <!DOCTYPE html>
+        <html lang="ca">
+        <head>
+          <meta charset="utf-8">
+          <title>Wonderful Travel</title>
+          <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 10px;
+      background-color: #f2f2f2;
+    }
+
+    section {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+        </head>
+        <body>
+          <header>
+            <h1>Factura de Reserva</h1>
+          </header>
+        
+          <section>
+            <h3>Detalls de la teva reserva</h3>
+            <table>
+              <tr>
+                <th>Continent</th>
+                <td>' . $continente . '</td>
+              </tr>
+              <tr>
+                <th>País</th>
+                <td>' . $countrySelect . '</td>
+              </tr>
+              <tr>
+                <th>Data de Reserva</th>
+                <td>' . $fecha_ida . '</td>
+              </tr>
+              <tr>
+                <th>Preu</th>
+                <td>' . $precio2 . '</td>
+              </tr>
+              <tr>
+                <th>Passatgers</th>
+                <td>' . $num_pasajeros . '</td>
+              </tr>
+            </table>
+            <h3>Les teves dades</h3>
+            <table>
+            <tr>
+                <th>DNI</th>
+                <td>' . $dni . '</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>' . $nom . '</td></tr>
+            <tr>
+                <th>Email</th>
+                <td>' . $email . '</td>
+            </tr>
+            <tr>
+                <th>Telèfon</th>
+                <td>' . $telefon . '</td>
+            </tr>
+            <tr>
+                <th>Adreça</th>
+                <td>' . $direccio . '</td>
+            </tr>
+            </table>
+          </section>
+        
+          <footer>
+            <p>Gràcies per triar els nostres serveis. Per a qualsevol consulta, poseu-vos en contacte amb nosaltres a través del nostre lloc web o correu electrònic.</p>
+          </footer>
+        </body>
+        </html>
+';
+
 
         $mail->Body = $text;
 
@@ -154,5 +237,3 @@ function getMail($dni)
         // Handle the exception
     }
 }
-
-?>

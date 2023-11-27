@@ -152,4 +152,11 @@ td {
   white-space: nowrap;
 }
 
+h2 {
+  font-size: 24px;
+  color: #333;  
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
 /* Otros estilos según tu preferencia */

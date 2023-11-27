@@ -29,12 +29,11 @@ if (isset($_SESSION['dni'])) {
             $reservas .= "<td>" . $row['Ciutat'] . "</td>";
             $reservas .= "<td>" . $row['datareserva'] . "</td>";
             $reservas .= "<td>" . $row['preu'] . "</td>";
-            $reservas .= "<td><button onclick='window.print()'>Imprimeix la reserva</button></td>";
             $reservas .= "</tr>";
         }
         $reservas .= "</table>";
     } else {
-        $reservas = "No se encontraron reservas para este cliente.";
+        $reservas = "<br>No s'ha trobat cap reserva per a aquest usuari.";
     }
     include '../Vista/detalls.vista.php';
 } else {
