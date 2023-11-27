@@ -22,34 +22,46 @@ if (isset($_SESSION['dni']))
         insertarReserva($ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni);
         $email = getMail($dni);
         sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni);
+        header('Location: detalls.php');
+
     }
+}
+else 
+{
+    header('Location: ../index.php');
+    echo "<script type='text/javascript'>alert('No has iniciat sessió');</script>";
 }
 
 function insertarReserva($ID, $fecha_ida, $continente, $countrySelect, $num_pasajeros, $precio2, $dni)
 {
-    require '../database/pdo.php';
-    $stmt = $pdo->prepare("INSERT INTO reserves (ID, datareserva, preu, Continent, qclients, Ciutat, DNI) VALUES (:ID, :datareserva, :preu, :Continent, :qclients, :Ciutat, :DNI)");
-    $stmt->bindParam(':ID', $ID);
-    $stmt->bindParam(':datareserva', $fecha_ida);
-    $stmt->bindParam(':preu', $precio2);
-    $stmt->bindParam(':Continent', $continente);
-    $stmt->bindParam(':qclients', $num_pasajeros);
-    $stmt->bindParam(':Ciutat', $countrySelect);
-    $stmt->bindParam(':DNI', $dni);
-    $stmt->execute();
+    require_once '../database/pdo.php';
+    $connexio = connexion();
+    try {
+        $stmt = $connexio->prepare("INSERT INTO reservas (ID, datareserva, preu, Continent, qclients, Ciutat, DNI) VALUES (:ID, :datareserva, :preu, :Continent, :qclients, :Ciutat, :DNI)");
+        $stmt->bindParam(':ID', $ID);
+        $stmt->bindParam(':datareserva', $fecha_ida);
+        $stmt->bindParam(':preu', $precio2);
+        $stmt->bindParam(':Continent', $continente);
+        $stmt->bindParam(':qclients', $num_pasajeros);
+        $stmt->bindParam(':Ciutat', $countrySelect);
+        $stmt->bindParam(':DNI', $dni);
+        $stmt->execute();
+    } catch (Exception $e) {
+        // Handle the exception
+    }
 }
 
 function generarID()
 {
-    require '../database/pdo.php';
-
+    require_once '../database/pdo.php';
+    $connexio = connexion();
     $id = '';
     $exists = true;
 
     while ($exists) {
         $id = mt_rand(10000, 99999); // Generates a random number with 5 digits
 
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM reserves WHERE id = :id");
+        $stmt = $connexio->prepare("SELECT COUNT(*) FROM reservas WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -84,21 +96,33 @@ function sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pas
 
         //Content 
         $mail->isHTML(true);                                         //Set email format to HTML
-        $mail->Subject = 'Contraseña';
+        $mail->Subject = 'Wonderful Travel - Detalls de la reserva';
         // Construir el cuerpo del correo
         $text = '
             <html>
             <head>
-                <title>Reserva de viaje</title>
+                <title>Reserva de viatge</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f2f2f2;
+                    }
+                    h1 {
+                        color: #333333;
+                    }
+                    p {
+                        color: #666666;
+                    }
+                </style>
             </head>
             <body>
-                <h1>Detalles de la reserva</h1>
+                <h1>Detalls de la reserva</h1>
                 <p>ID de reserva: ' . $ID . '</p>
-                <p>Fecha de ida: ' . $fecha_ida . '</p>
-                <p>Continente: ' . $continente . '</p>
-                <p>País seleccionado: ' . $countrySelect . '</p>
-                <p>Número de pasajeros: ' . $num_pasajeros . '</p>
-                <p>Precio: ' . $precio2 . '</p>
+                <p>Data d\'anada: ' . $fecha_ida . '</p>
+                <p>Continent: ' . $continente . '</p>
+                <p>País seleccionat: ' . $countrySelect . '</p>
+                <p>Número de passatgers: ' . $num_pasajeros . '</p>
+                <p>Preu: ' . $precio2 . '</p>
                 <p>DNI: ' . $dni . '</p>
             </body>
             </html>
@@ -109,20 +133,25 @@ function sendMail($email, $ID, $fecha_ida, $continente, $countrySelect, $num_pas
         $mail->send();
         $enviat = true;
     } catch (Exception $e) {
-    $enviat = false;
+        $enviat = false;
     }
 }
 
 function getMail($dni)
 {
-    require '../database/pdo.php';
-    $stmt = $pdo->prepare("SELECT email FROM usuaris WHERE dni = :dni");
-    $stmt->bindParam(':dni', $dni);
-    $stmt->execute();
+    require_once '../database/pdo.php';
+    $connexio = connexion();
+    try {
+        $stmt = $connexio->prepare("SELECT email FROM client WHERE nif = :nif");
+        $stmt->bindParam(':nif', $dni);
+        $stmt->execute();
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $result['email'];
+        return $result['email'];
+    } catch (Exception $e) {
+        // Handle the exception
+    }
 }
 
 ?>

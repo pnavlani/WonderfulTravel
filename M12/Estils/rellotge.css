@@ -1,3 +1,4 @@
+
 * {
     padding: 0;
     margin: 0;
@@ -5,20 +6,19 @@
 }
 
 
-.analogic{
+.analogic {
     background: #c9cbd1;
     height: 320px;
     width: 320px;
     float: right;
-    transform: scale(0.30);
+    transform: scale(0.46);
+    margin-right: -4%;
+    margin-top: 370px;
     box-sizing: content-box;
     border-radius: 50%;
     border: 5px solid #121314;
     box-shadow: 15px 15px 35px rgba(243, 243, 243, 0.2),
         inset 0 0 30px rgba(0, 0, 0, 0.4);
-}
-
-img {
     position: relative;
 }
 
@@ -29,7 +29,7 @@ img {
     left: 0;
     right: 0;
     border-radius: 5px;
-    transform-origin: bottom;
+    transform-origin: center bottom;
 }
 
 .hour {
@@ -46,7 +46,14 @@ img {
 
 .seconds {
     height: 90px;
-    width: 3px;
+    width: 3px; 
     top: 70px;
     background-color: #2196f3;
+}
+
+img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
 }

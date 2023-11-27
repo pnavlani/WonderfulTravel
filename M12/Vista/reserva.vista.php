@@ -10,27 +10,28 @@
 
 <body>
 <header>
-    <?php if (isset($_SESSION['dni'])) { ?>
+<?php session_start(); if (isset($_SESSION['dni'])) { ?>
         <nav>
-        <h3 class="logo">Wonderful Travel</h3>
-        <ul cla ss="list-item">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Reserves</a></li>
-            <li><a href="#"><Table>Tancar sessió</Table></a></li>
-        </ul>
+            <h3 class="logo">Wonderful Travel</h3>
+            <ul class="list-item">
+                <li><a href="reserva.vista.php">Home</a></li>
+                <li><a href="../model/detalls.php">Reserves</a></li>
+                <li><a href="../model/closesess.php"><span>Tancar sessió</span></a></li>
+            </ul>
         </nav>
-    <?php } else { ?> 
+    <?php } else { ?>
         <nav>
-        <h3 class="logo">Wonderful Travel<a href="#"></a></h3>
-        <ul class="list-item">
-            <li><a href="#">Home</a></li>
-            <li><a href="#"><Table>Iniciar sessió</Table></a></li>
-        </ul>
+            <h3 class="logo">Wonderful Travel</h3>
+            <ul class="list-item">
+                <li><a href="#">Home</a></li>
+                <li><a href="#"><span>Iniciar sessió</span></a></li>
+            </ul>
         </nav>
     <?php } ?>
       
     </header>
-    <form name="reserva" id="reserva" action="../model/reserva.php" method="get">
+    
+    <form name="reserva" id="reserva" action="../model/reserva.php" method="post">
         <div>
             <h2>Información del Viaje</h2>
             <label for="fecha_ida">Data</label>
@@ -70,7 +71,7 @@
         <a><strong>&nbsp;&nbsp;&nbsp;Descompte aplicat?</strong></a> <a style="color: blueviolet;" id="desc"></a><br><br>
         <a><strong>&nbsp;&nbsp;&nbsp;Preu per persona:</strong></a> <a style="color: blueviolet;" id="preciopers"></a><br><br>
         <a><strong>&nbsp;&nbsp;&nbsp;Preu total del viatge:</strong></a> <a id="precio" style="color: blueviolet;" name="precio"></a><br><br>
-        <a style="font-size: 10px; float: left; color: red;" >Recordeu que el descompte només s'aplica en viatges on hi hagi 3 passatgers o més* </a>
+        <a style="margin-top: 5px; font-size: 10px; float: left; color: red;" >Recordeu que el descompte només s'aplica en viatges on hi hagi 3 passatgers o més* </a>
     </div>
     </div>
 </body>

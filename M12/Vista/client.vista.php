@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Estils/estils.css">
+  <link rel="stylesheet" href="Estils/client.css">
   <link rel="stylesheet" href="Estils/rellotge.css">
     <title>Client</title>
     
 </head>
 
 <body>
-    <h1>Wonderfull Travels</h1>
+<header>
+        <nav>
+        <h3 class="logo">Wonderful Travel<a href="#"></a></h3>
+        <ul class="list-item">
+            <li><a href="#">Home</a></li>
+        </ul>
+        </nav>
+      
+    </header>
+    
+    
     <div class="analogic">
         <div class="hour hand" id="hora"></div>
         <div class="minute hand" id="minut"></div>
         <div class="seconds hand" id="segons"></div>
-        <img src="../photos/rellotge.svg" alt="Rellotge Analogic" />
+        <img src="photos/rellotge.svg" alt="Rellotge Analogic" />
     </div>
-   <script src="../js/analogic.js"></script>
+
+   <script src="js/analogic.js"></script>
+   <div class="divv">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <h2>Informació del Client</h2>
             <label for="nom">Nom del Client*</label>
@@ -40,5 +52,6 @@
             <br>
             <input type="submit"  name="submit" ><br><br>
     </form>
+    </div>
 </body>
 </html>
