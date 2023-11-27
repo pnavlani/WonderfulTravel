@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2023 a las 16:08:51
+-- Tiempo de generación: 27-11-2023 a las 19:48:14
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -76,6 +76,17 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`nif`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `client`
+--
+
+INSERT INTO `client` (`nom`, `email`, `telefon`, `direccio`, `nif`) VALUES
+('David', 'd.buesa@sapalomera.cat', '111111111', 'david payaso', '39987652A'),
+('Ayman', 'ayman.zekkari2@gmail.com', '691717544', 'C/Josep Carner 5 3/2', '54810851B'),
+('Mark', 'a.sbay@sapalomera.cat', '656671679', 'C/Josep Carner 5 3/2', '54810851C'),
+('Tete', 'a.sbay@sapalomera.cat', '545454544', 'C/Josep Carner 5 3/2', '54810851F'),
+('Atika', 'ayman.zekkari@gmail.com', '647835192', 'C/Josep Carner 5 3/2', '54810851Q');
+
 -- --------------------------------------------------------
 
 --
@@ -108,13 +119,25 @@ INSERT INTO `continents` (`ID`, `Continent`) VALUES
 
 DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE IF NOT EXISTS `reservas` (
-  `ID` smallint(5) UNSIGNED NOT NULL,
-  `datareserva` date NOT NULL,
-  `preu` int(11) NOT NULL,
-  `preudesc` int(11) NOT NULL,
+  `ID` varchar(10) NOT NULL,
+  `datareserva` text NOT NULL,
+  `preu` text NOT NULL,
+  `Continent` varchar(20) NOT NULL,
   `qclients` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Ciutat` varchar(20) NOT NULL,
+  `DNI` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reservas`
+--
+
+INSERT INTO `reservas` (`ID`, `datareserva`, `preu`, `Continent`, `qclients`, `Ciutat`, `DNI`) VALUES
+('00000', '2023-12-09', '300,00 €', 'Europa', 1, 'Barcelona', '54810851B'),
+('00001', '2023-12-02', '400,00 €', 'Asia', 1, 'Istanbul', '54810851C'),
+('00002', '2023-11-27', '450,00 €', 'Europa', 1, 'Berlín', '54810851B');
 
 --
 -- Restricciones para tablas volcadas
@@ -125,6 +148,12 @@ CREATE TABLE IF NOT EXISTS `reservas` (
 --
 ALTER TABLE `ciutats`
   ADD CONSTRAINT `TestContinent` FOREIGN KEY (`Continent_ID`) REFERENCES `continents` (`ID`);
+
+--
+-- Filtros para la tabla `reservas`
+--
+ALTER TABLE `reservas`
+  ADD CONSTRAINT `DNI` FOREIGN KEY (`DNI`) REFERENCES `client` (`nif`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
