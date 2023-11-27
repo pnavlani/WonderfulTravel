@@ -9,9 +9,7 @@
     background: #c9cbd1;
     height: 320px;
     width: 320px;
-    position: absolute;
-    top:-15%;
-    left: -7%; 
+    float: right;
     transform: scale(0.30);
     box-sizing: content-box;
     border-radius: 50%;

@@ -1,5 +1,5 @@
 <?php
-require '../database/pdo.php';
+require 'pdo.php';
 
 
 
